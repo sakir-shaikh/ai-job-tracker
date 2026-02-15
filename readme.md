@@ -4,15 +4,19 @@ A Full Stack Application to track job applications, interviews, and offers.
 Built with **Spring Boot 3**, **React**, **PostgreSQL**, and **Docker**.
 
 ## 📸 Screenshots
-*(You will add a screenshot here later)*
+
+_(You will add a screenshot here later)_
+![alt text](assets/health.png)
 
 ## 🛠️ Tech Stack
+
 - **Backend:** Java 21, Spring Boot 3, Spring Data JPA, Hibernate
 - **Frontend:** React 18, Vite, Mantine UI, Axios
 - **Database:** PostgreSQL 16 (Dockerized)
 - **Tools:** Docker Compose, Maven, Swagger UI
 
 ## ✨ Features
+
 - **Dashboard:** Real-time statistics (Total Applications, Interviews, Offers).
 - **CRUD Operations:** Add, Edit, and Delete job applications.
 - **Search:** Instant client-side filtering by Company or Title.
@@ -21,5 +25,7 @@ Built with **Spring Boot 3**, **React**, **PostgreSQL**, and **Docker**.
 ## 🚀 How to Run
 
 ### 1. Start the Infrastructure
+
 ```bash
 docker-compose up -d
+```

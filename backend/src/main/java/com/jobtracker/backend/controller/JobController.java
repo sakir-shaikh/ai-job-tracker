@@ -14,7 +14,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/jobs")
-@CrossOrigin(origins = "http://localhost:5173") // Allow React to talk to this later
 public class JobController {
 
     private final JobService service;
@@ -32,14 +31,13 @@ public class JobController {
     public ResponseEntity<Page<Job>> getAllJobs(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy
-    ) {
+            @RequestParam(defaultValue = "id") String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy).ascending());
         return ResponseEntity.ok(service.getAllJobs(pageable));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Job> getJobById(@Valid @PathVariable final Long id){
+    public ResponseEntity<Job> getJobById(@Valid @PathVariable final Long id) {
         return ResponseEntity.ok(service.getJobById(id));
     }
 

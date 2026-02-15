@@ -5,7 +5,7 @@ Built with **Spring Boot 3**, **React**, **PostgreSQL**, and **Docker**.
 
 ## 📸 Screenshots
 
-_(You will add a screenshot here later)_
+_(You will add a screenshot here later)_    
 ![alt text](assets/health.png)
 
 ## 🛠️ Tech Stack
@@ -29,3 +29,17 @@ _(You will add a screenshot here later)_
 ```bash
 docker-compose up -d
 ```
+
+
+## 🏗️ Architecture
+
+```mermaid
+graph TD
+    User[User / Browser] -->|React (Port 5173)| Frontend
+    Frontend -->|Axios JSON| Backend
+    subgraph Docker
+        Backend[Spring Boot API (Port 8080)]
+        DB[(PostgreSQL 16)]
+    end
+    Backend -->|Hibernate| DB
+    Backend -->|Actuator| Monitoring[Health Checks]

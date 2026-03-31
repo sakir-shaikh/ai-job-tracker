@@ -3,8 +3,7 @@ import { Table, Badge, Group, Button } from "@mantine/core";
 import { getStatusColor } from "../utils/styleHelpers";
 import { AppStrings } from "../constants/strings";
 
-function JobTable({ jobs, onEdit, onDelete, search }) {
-  const filteredJobs = jobs.filter((job) => job.company.toLowerCase().includes(search.toLowerCase()));
+function JobTable({ jobs, onEdit, onDelete }) {
   return (
     <Table striped highlightOnHover withTableBorder>
       <Table.Thead>
@@ -18,7 +17,7 @@ function JobTable({ jobs, onEdit, onDelete, search }) {
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody>
-        {filteredJobs.map((job) => (
+        {jobs.map((job) => (
           <Table.Tr key={job.id}>
             <Table.Td style={{ fontWeight: 500 }}>{job.company}</Table.Td>
             <Table.Td>{job.title}</Table.Td>
@@ -50,6 +49,13 @@ function JobTable({ jobs, onEdit, onDelete, search }) {
             </Table.Td>
           </Table.Tr>
         ))}
+        {jobs.length === 0 && (
+          <Table.Tr>
+            <Table.Td colSpan={6} style={{ textAlign: "center", padding: "20px" }}>
+              No jobs found.
+            </Table.Td>
+          </Table.Tr>
+        )}
       </Table.Tbody>
     </Table>
   );

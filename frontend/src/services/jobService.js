@@ -5,13 +5,16 @@ import { API_BASE_URL } from "./api";
 const API_URL = `${API_BASE_URL}/jobs`;
 
 /**
- * Fetch all jobs.
- * @returns {Promise<Array>} A promise that resolves to an array of jobs.
+ * Fetch jobs with optional search and pagination.
+ * @param {object} params - Search and pagination parameters.
+ * @returns {Promise<object>} A promise that resolves to the paginated response.
  */
-export const getAllJobs = async () => {
-  // Using a large size to fetch all jobs. Proper pagination would be implemented in a real-world scenario.
-  const response = await axios.get(`${API_URL}?size=100`);
-  return response.data.content;
+export const getAllJobs = async (params = {}) => {
+  const { search = "", page = 0, size = 10, sortBy = "id" } = params;
+  const response = await axios.get(API_URL, {
+    params: { search, page, size, sortBy },
+  });
+  return response.data; // Now returns the full Page object (content, totalElements, etc.)
 };
 
 /**

@@ -8,8 +8,9 @@ import {
   Loader,
   Alert,
   TextInput,
+  Pagination,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useDebouncedValue } from "@mantine/hooks";
 import JobTable from "../components/JobTable";
 import JobForm from "../components/JobForm";
 import { useJobs } from "../hooks/useJobs";
@@ -17,12 +18,13 @@ import { AppStrings, JobFormStrings } from "../constants/strings";
 import Stats from "./Stats";
 
 function HomePage() {
-  const { jobs, loading, error, addJob, editJob, removeJob } = useJobs();
+  const [search, setSearch] = useState("");
+  const [debouncedSearch] = useDebouncedValue(search, 300);
+  const { jobs, loading, error, pagination, addJob, editJob, removeJob, setPage } = useJobs(debouncedSearch);
   const [opened, { open, close }] = useDisclosure(false);
   const [selectedJob, setSelectedJob] = useState(null);
   const [formError, setFormError] = useState("");
   const [formLoading, setFormLoading] = useState(false);
-  const [search, setSearch] = useState("");
 
   const handleAddClick = () => {
     setSelectedJob(null);
@@ -55,17 +57,19 @@ function HomePage() {
   return (
     <Container size="lg" py="xl">
       <Stats jobs={jobs} />
-      <Group position="apart" mb="lg">
+      <Group justify="space-between" mb="lg">
         <Title order={1}>{AppStrings.appTitle}</Title>
-        <Button onClick={handleAddClick}>{AppStrings.addJobButton}</Button>
-    
-        <TextInput
-          placeholder="Search by Company..."
-          mb="md"
-          icon="🔍"
-          value={search}
-          onChange={(event) => setSearch(event.currentTarget.value)}
-        />
+        <Group>
+          <TextInput
+            placeholder="Search by Company or Title..."
+            value={search}
+            onChange={(event) => {
+              setSearch(event.currentTarget.value);
+              setPage(0); // Reset to first page on search
+            }}
+          />
+          <Button onClick={handleAddClick}>{AppStrings.addJobButton}</Button>
+        </Group>
       </Group>
 
       {error && (
@@ -75,14 +79,24 @@ function HomePage() {
       )}
 
       {loading ? (
-        <Loader />
+        <Group justify="center" my="xl">
+           <Loader />
+        </Group>
       ) : (
-        <JobTable
-          jobs={jobs}
-          onEdit={handleEditClick}
-          onDelete={removeJob}
-          search={search}
-        />
+        <>
+          <JobTable
+            jobs={jobs}
+            onEdit={handleEditClick}
+            onDelete={removeJob}
+          />
+          <Group justify="center" mt="xl">
+            <Pagination 
+              value={pagination.page + 1} 
+              onChange={(p) => setPage(p - 1)} 
+              total={pagination.totalPages} 
+            />
+          </Group>
+        </>
       )}
       <JobForm
         opened={opened}

@@ -1,0 +1,11 @@
+.idea/
+*.iml
+*.iws
+*.ipr
+target/
+node_modules/
+dist/
+.env
+.env.local
+out/
+build/

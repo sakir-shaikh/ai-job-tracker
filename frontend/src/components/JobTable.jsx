@@ -1,7 +1,7 @@
 // src/components/JobTable.jsx
 import { Table, Badge, Group, Button } from "@mantine/core";
 import { getStatusColor } from "../utils/styleHelpers";
-import { AppStrings } from "../constants/strings";
+import { AppStrings, AppConfig } from "../constants/strings";
 
 function JobTable({ jobs, onEdit, onDelete }) {
   return (
@@ -52,7 +52,7 @@ function JobTable({ jobs, onEdit, onDelete }) {
         {jobs.length === 0 && (
           <Table.Tr>
             <Table.Td colSpan={6} style={{ textAlign: "center", padding: "20px" }}>
-              No jobs found.
+              {AppConfig.NO_JOBS_FOUND}
             </Table.Td>
           </Table.Tr>
         )}

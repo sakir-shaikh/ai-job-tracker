@@ -1,5 +1,6 @@
 package com.jobtracker.backend.service;
 
+import com.jobtracker.backend.config.AppConstants;
 import com.jobtracker.backend.dto.JobRequestDTO;
 import com.jobtracker.backend.dto.JobResponseDTO;
 import com.jobtracker.backend.exception.JobNotFoundException;
@@ -40,7 +41,7 @@ public class JobServiceImpl implements JobService {
     public JobResponseDTO getJobById(Long id) {
         return repository.findById(id)
                 .map(mapper::toResponseDTO)
-                .orElseThrow(() -> new JobNotFoundException("Job not found with id: " + id));
+                .orElseThrow(() -> new JobNotFoundException(String.format(AppConstants.JOB_NOT_FOUND_MSG, id)));
     }
 
     @Override
@@ -55,7 +56,7 @@ public class JobServiceImpl implements JobService {
     @Override
     public JobResponseDTO updateJob(Long id, JobRequestDTO dto) {
         Job existingJob = repository.findById(id)
-                .orElseThrow(() -> new JobNotFoundException("Job not found with id: " + id));
+                .orElseThrow(() -> new JobNotFoundException(String.format(AppConstants.JOB_NOT_FOUND_MSG, id)));
 
         mapper.updateEntityFromDTO(dto, existingJob);
         return mapper.toResponseDTO(repository.save(existingJob));
@@ -64,7 +65,7 @@ public class JobServiceImpl implements JobService {
     @Override
     public void deleteJob(Long id) {
         if (!repository.existsById(id)) {
-            throw new JobNotFoundException("Job not found with id: " + id);
+            throw new JobNotFoundException(String.format(AppConstants.JOB_NOT_FOUND_MSG, id));
         }
         repository.deleteById(id);
     }

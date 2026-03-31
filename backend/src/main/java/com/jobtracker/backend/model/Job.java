@@ -1,11 +1,11 @@
 package com.jobtracker.backend.model;
 
+import com.jobtracker.backend.config.AppConstants;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Data
@@ -16,17 +16,17 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Company name is mandatory")
+    @NotBlank(message = AppConstants.COMPANY_MANDATORY)
     private String company;
-    @NotBlank(message = "job title is mandatory")
+    @NotBlank(message = AppConstants.TITLE_MANDATORY)
     private String title;
     private String description;
 
-    @NotNull(message = "status is mandatory")
+    @NotNull(message = AppConstants.STATUS_MANDATORY)
     @Enumerated(EnumType.STRING)
     private JobStatus status;
 
-    @NotNull(message = "location is mandatory")
+    @NotNull(message = AppConstants.LOCATION_MANDATORY)
     @Enumerated(EnumType.STRING)
     private JobLocation location;
 

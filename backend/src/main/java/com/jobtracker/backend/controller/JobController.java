@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/jobs")
+@RequestMapping(AppConstants.API_BASE_PATH)
 public class JobController {
 
     private final JobService service;
@@ -39,17 +39,17 @@ public class JobController {
         return ResponseEntity.ok(service.getAllJobs(search, pageable));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(AppConstants.ID_PATH_VARIABLE)
     public ResponseEntity<JobResponseDTO> getJobById(@PathVariable Long id){
         return ResponseEntity.ok(service.getJobById(id));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(AppConstants.ID_PATH_VARIABLE)
     public ResponseEntity<JobResponseDTO> updateJob(@PathVariable Long id, @Valid @RequestBody JobRequestDTO jobRequestDTO) {
         return ResponseEntity.ok(service.updateJob(id, jobRequestDTO));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(AppConstants.ID_PATH_VARIABLE)
     public ResponseEntity<Void> deleteJob(@PathVariable Long id) {
         service.deleteJob(id);
         return ResponseEntity.noContent().build();

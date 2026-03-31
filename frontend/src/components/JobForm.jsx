@@ -13,6 +13,7 @@ import {
   JobFormStrings,
   LocationOptions,
   StatusOptions,
+  AppConfig,
 } from "../constants/strings";
 
 function JobForm({ opened, close, onSubmit, job, loading, error, setError }) {
@@ -20,8 +21,8 @@ function JobForm({ opened, close, onSubmit, job, loading, error, setError }) {
     initialValues: {
       company: "",
       title: "",
-      status: "APPLIED",
-      location: "REMOTE",
+      status: AppConfig.DEFAULT_STATUS,
+      location: AppConfig.DEFAULT_LOCATION,
       description: "",
       jobLink: "",
     },

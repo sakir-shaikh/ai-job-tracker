@@ -80,4 +80,7 @@ export const StatsStrings = {
   DEFAULT_PAGE_SIZE: 10,
   SEARCH_DEBOUNCE_MS: 300,
   STATS_COLUMNS: 3,
+  DEFAULT_STATUS: "APPLIED",
+  DEFAULT_LOCATION: "REMOTE",
+  NO_JOBS_FOUND: "No jobs found.",
   };

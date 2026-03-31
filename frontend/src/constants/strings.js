@@ -73,4 +73,11 @@ export const StatsStrings = {
   totalApplications: "Total Applications",
   interviews: "Interviews",
   offers: "Offers",
-};
+  };
+
+  export const AppConfig = {
+  DEFAULT_PAGE: 0,
+  DEFAULT_PAGE_SIZE: 10,
+  SEARCH_DEBOUNCE_MS: 300,
+  STATS_COLUMNS: 3,
+  };

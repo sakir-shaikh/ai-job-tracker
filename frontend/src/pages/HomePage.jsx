@@ -14,12 +14,12 @@ import { useDisclosure, useDebouncedValue } from "@mantine/hooks";
 import JobTable from "../components/JobTable";
 import JobForm from "../components/JobForm";
 import { useJobs } from "../hooks/useJobs";
-import { AppStrings, JobFormStrings } from "../constants/strings";
+import { AppStrings, JobFormStrings, AppConfig } from "../constants/strings";
 import Stats from "./Stats";
 
 function HomePage() {
   const [search, setSearch] = useState("");
-  const [debouncedSearch] = useDebouncedValue(search, 300);
+  const [debouncedSearch] = useDebouncedValue(search, AppConfig.SEARCH_DEBOUNCE_MS);
   const { jobs, loading, error, pagination, addJob, editJob, removeJob, setPage } = useJobs(debouncedSearch);
   const [opened, { open, close }] = useDisclosure(false);
   const [selectedJob, setSelectedJob] = useState(null);
@@ -65,7 +65,7 @@ function HomePage() {
             value={search}
             onChange={(event) => {
               setSearch(event.currentTarget.value);
-              setPage(0); // Reset to first page on search
+              setPage(AppConfig.DEFAULT_PAGE); // Reset to first page on search
             }}
           />
           <Button onClick={handleAddClick}>{AppStrings.addJobButton}</Button>

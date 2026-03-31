@@ -1,15 +1,15 @@
 // src/hooks/useJobs.js
 import { useState, useEffect, useCallback } from "react";
 import * as jobService from "../services/jobService";
-import { AppStrings } from "../constants/strings";
+import { AppStrings, AppConfig } from "../constants/strings";
 
 export const useJobs = (searchQuery = "") => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [pagination, setPagination] = useState({
-    page: 0,
-    size: 10,
+    page: AppConfig.DEFAULT_PAGE,
+    size: AppConfig.DEFAULT_PAGE_SIZE,
     totalElements: 0,
     totalPages: 0,
   });

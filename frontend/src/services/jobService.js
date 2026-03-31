@@ -1,6 +1,7 @@
 // src/services/jobService.js
 import axios from "axios";
 import { API_BASE_URL } from "./api";
+import { AppConfig } from "../constants/strings";
 
 const API_URL = `${API_BASE_URL}/jobs`;
 
@@ -10,7 +11,12 @@ const API_URL = `${API_BASE_URL}/jobs`;
  * @returns {Promise<object>} A promise that resolves to the paginated response.
  */
 export const getAllJobs = async (params = {}) => {
-  const { search = "", page = 0, size = 10, sortBy = "id" } = params;
+  const { 
+    search = "", 
+    page = AppConfig.DEFAULT_PAGE, 
+    size = AppConfig.DEFAULT_PAGE_SIZE, 
+    sortBy = "id" 
+  } = params;
   const response = await axios.get(API_URL, {
     params: { search, page, size, sortBy },
   });

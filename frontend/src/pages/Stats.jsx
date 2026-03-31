@@ -1,14 +1,14 @@
 import { SimpleGrid, Card, Text } from "@mantine/core";
-import { StatsStrings, AppStrings, JobFormStrings} from "../constants/strings";
+import { StatsStrings, AppConfig, JobStatus } from "../constants/strings";
 
 function Stats({ jobs }) {
   const total = jobs.length;
   const interviews = jobs.filter(
-    (j) => j.status === AppStrings.INTERVIEWING,
+    (j) => j.status === JobStatus.INTERVIEWING,
   ).length;
-  const offers = jobs.filter((j) => j.status === JobFormStrings.OFFER).length;
+  const offers = jobs.filter((j) => j.status === JobStatus.OFFER).length;
   return (
-    <SimpleGrid cols={3} mb="lg">
+    <SimpleGrid cols={AppConfig.STATS_COLUMNS} mb="lg">
       <Card shadow="sm" padding="lg" radius="md" withBorder>
         <Text size="xl" weight={700}>
           {total}

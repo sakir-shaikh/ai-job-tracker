@@ -1,5 +1,6 @@
 package com.jobtracker.backend.controller;
 
+import com.jobtracker.backend.config.AppConstants;
 import com.jobtracker.backend.dto.JobRequestDTO;
 import com.jobtracker.backend.dto.JobResponseDTO;
 import com.jobtracker.backend.service.JobService;
@@ -30,9 +31,9 @@ public class JobController {
     @GetMapping
     public ResponseEntity<Page<JobResponseDTO>> getAllJobs(
             @RequestParam(required = false) String search,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy
+            @RequestParam(defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+            @RequestParam(defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
+            @RequestParam(defaultValue = AppConstants.DEFAULT_SORT_BY) String sortBy
     ) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy).ascending());
         return ResponseEntity.ok(service.getAllJobs(search, pageable));
